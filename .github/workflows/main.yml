@@ -19,9 +19,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
-          
-      - run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
-      - run: npm ci
+        
+      - name: Set github secrets
+        run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
           
       - name: Install Dependencies
         run: npm install
@@ -31,3 +31,10 @@ jobs:
         
       - name: Running Jest Coverage
         run: npm run test:cov
+        
+      - name: Coverage check
+        uses: devmasx/coverage-check-action@v1.2.0
+        with:
+          token: ${{ github.token }}
+          min_coverage: 50
+          result_path: coverage/coverage-final.json
