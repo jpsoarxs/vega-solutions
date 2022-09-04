@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, CanActivate } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateCustomerUseCase } from '../../use-cases';
 import { CustomerRepository } from '../../infra/repositories';
@@ -7,11 +7,16 @@ import { CustomerV1Controller } from '../customer-v1.controller';
 import { CreateCustomerDto } from '../dto';
 import { faker } from '@faker-js/faker';
 import { StateEnum } from '../../entities/enum';
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt.guard';
 
 describe('CustomerControllerV1', () => {
 	let app: INestApplication;
 
 	beforeEach(async () => {
+		const mockGuard: CanActivate = {
+			canActivate: jest.fn(() => true),
+		};
+
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				CreateCustomerUseCase,
@@ -23,7 +28,10 @@ describe('CustomerControllerV1', () => {
 				},
 			],
 			controllers: [CustomerV1Controller],
-		}).compile();
+		})
+			.overrideGuard(JwtAuthGuard)
+			.useValue(mockGuard)
+			.compile();
 
 		app = module.createNestApplication();
 		await app.init();

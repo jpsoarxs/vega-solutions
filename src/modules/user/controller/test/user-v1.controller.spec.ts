@@ -1,16 +1,21 @@
 import * as request from 'supertest';
-import { INestApplication } from '@nestjs/common';
+import { CanActivate, INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserUseCase } from '../../use-cases';
 import { UserRepository } from '../../infra/repositories';
 import { UserV1Controller } from '../user-v1.controller';
 import { CreateUserDto } from '../dto';
 import { faker } from '@faker-js/faker';
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt.guard';
 
 describe('UserControllerV1', () => {
 	let app: INestApplication;
 
 	beforeEach(async () => {
+		const mockGuard: CanActivate = {
+			canActivate: jest.fn(() => true),
+		};
+
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				CreateUserUseCase,
@@ -22,7 +27,10 @@ describe('UserControllerV1', () => {
 				},
 			],
 			controllers: [UserV1Controller],
-		}).compile();
+		})
+			.overrideGuard(JwtAuthGuard)
+			.useValue(mockGuard)
+			.compile();
 
 		app = module.createNestApplication();
 		await app.init();
