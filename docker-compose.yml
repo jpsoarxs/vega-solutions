@@ -1,0 +1,62 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: desafio-nestjs
+    command: .docker/start.sh
+    volumes:
+      - .:/home/node/app
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 3000:3000
+    networks:
+      - desafio-network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rbmq
+    hostname: rabbitmq
+    volumes:
+      - /var/lib/rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    env_file:
+      - ./.docker.env
+    networks:
+      - desafio-network
+    restart: unless-stopped
+
+  postgres:
+    container_name: pg
+    image: postgres:14.4-alpine
+    volumes:
+      - postgres:/data/postgres
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - '5432:5432'
+    env_file:
+      - ./.docker.env
+    networks:
+      - desafio-network
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pg_admin
+    ports:
+      - 15432:80
+    image: dpage/pgadmin4
+    networks:
+      - desafio-network
+    env_file:
+      - ./.docker.env
+
+networks:
+  desafio-network:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
