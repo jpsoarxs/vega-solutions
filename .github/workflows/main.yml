@@ -35,6 +35,6 @@ jobs:
       - name: Coverage check
         uses: devmasx/coverage-check-action@v1.2.0
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           min_coverage: 50
           result_path: coverage/coverage-final.json
