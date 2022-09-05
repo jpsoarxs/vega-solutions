@@ -66,9 +66,12 @@ jobs:
           envkey_TYPEORM_POSTGRES_LOGGING: ${{ secrets.TYPEORM_POSTGRES_LOGGING }}
           envkey_TYPEORM_POSTGRES_ENTITIES: ${{ secrets.TYPEORM_POSTGRES_ENTITIES }}
           envkey_TYPEORM_POSTGRES_MIGRATIONS: ${{ secrets.TYPEORM_POSTGRES_MIGRATIONS }}
-        
-        - name: Running Migrations
-          run: npm run migration:run
+
+      - name: Show files
+        run: ls -a
+
+      - name: Running Migrations
+        run: npm run migration:run
 
   deploy:
     runs-on: ubuntu-latest
