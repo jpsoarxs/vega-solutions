@@ -5,6 +5,26 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+  POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASS: ${{ secrets.POSTGRES_PASS }}
+  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+
+  PORT: ${{ secrets.POSTGRES_PORT }}
+
+  TYPEORM_POSTGRES_SYNCHRONIZE: ${{ secrets.TYPEORM_POSTGRES_SYNCHRONIZE }}
+  TYPEORM_POSTGRES_LOGGING: ${{ secrets.TYPEORM_POSTGRES_LOGGING }}
+  TYPEORM_POSTGRES_ENTITIES: ${{ secrets.TYPEORM_POSTGRES_ENTITIES }}
+  TYPEORM_POSTGRES_MIGRATIONS: ${{ secrets.TYPEORM_POSTGRES_MIGRATIONS }}
+
+  AUTH_SALT_ROUNDS: ${{ secrets.AUTH_SALT_ROUNDS }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  SIGN_EXPIRATION: ${{ secrets.SIGN_EXPIRATION }}
 
 jobs:
   build:
@@ -32,9 +52,19 @@ jobs:
       - name: Running Jest Coverage
         run: npm run test:cov
         
-      - name: Coverage check
-        uses: devmasx/coverage-check-action@v1.2.0
-        with:
-          token: ${{ github.token }}
-          min_coverage: 50
-          result_path: coverage/coverage-final.json
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: production
+      url: prod-desafio.fly.dev
+      
+    steps:
+      - name: Deploy application - step 1
+        uses: actions/checkout@v2
+
+      - name: Deploy application - step 2 
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Up the deploy
+        run: flyctl deploy --remote-only
