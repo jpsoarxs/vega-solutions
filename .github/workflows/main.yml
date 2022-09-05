@@ -51,7 +51,7 @@ jobs:
       - name: Deploy application - step 2
         uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - name: Deploy application - 3
+      - name: Deploy application - step 3
         uses: SpicyPizza/create-envfile@v1.3
         with:
           envkey_POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
@@ -69,4 +69,4 @@ jobs:
           envkey_PORT: ${{ secrets.PORT }}
 
       - name: Up the deploy
-        run: flyctl deploy --remote-only
+        run: flyctl deploy --remote-only --verbose
