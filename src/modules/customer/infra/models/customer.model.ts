@@ -12,9 +12,6 @@ export class CustomerModel {
 	@Column({ unique: true })
 	email: string;
 
-	@Column({ select: false })
-	password: string;
-
 	@OneToOne(() => AddressModel, ({ id }: AddressModel) => id, { cascade: true })
 	@JoinColumn({ name: 'address' })
 	address: AddressModel;

@@ -7,6 +7,7 @@ export class AppController {
 		return {
 			name: 'NestJS API - Desafio',
 			version: '1.0.0',
+			docs: 'https://jpsdm.com/api/docs',
 		};
 	}
 }

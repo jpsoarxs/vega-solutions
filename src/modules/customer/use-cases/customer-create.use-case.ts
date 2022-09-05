@@ -20,12 +20,7 @@ export class CreateCustomerUseCase {
 	 */
 	async execute(customer: CreateCustomerDto): Promise<CustomerModel> {
 		const entity = new CustomerEntity(customer);
-
-		await entity.hashPassword();
-
 		const res = await this.repository.create(entity);
-
-		if (res.password) delete res.password;
 
 		return res;
 	}

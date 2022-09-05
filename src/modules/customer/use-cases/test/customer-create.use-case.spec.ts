@@ -23,11 +23,10 @@ describe('CreateCustomerUseCase', () => {
 		createCustomer = module.get<CreateCustomerUseCase>(CreateCustomerUseCase);
 	});
 
-	it('should create new customer with hashed password', async () => {
+	it('should create new customer', async () => {
 		const customer = {
 			name: faker.name.firstName(),
 			email: faker.internet.email(),
-			password: faker.internet.password(),
 			cpf: '05787697409',
 			phone: faker.phone.number(),
 			address: {
@@ -45,6 +44,5 @@ describe('CreateCustomerUseCase', () => {
 		expect(result.id).toEqual(expect.any(String));
 		expect(result.email).toBe(customer.email);
 		expect(result.name).toBe(customer.name);
-		expect(result.password).toBe(undefined);
 	});
 });
