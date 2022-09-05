@@ -55,7 +55,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    
+    environment:
+      name: production
+      url: prod-desafio.fly.dev
+      
     steps:
       - name: Deploy application - step 1
         uses: actions/checkout@v2
