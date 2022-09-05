@@ -4,12 +4,12 @@ import {
 	VersioningType,
 	VERSION_NEUTRAL,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 import { CustomLoggerService } from './infra';
 import { HttpExceptionFilter } from './infra/filters/http-exception.filter';
+import { ConfigService } from '@nestjs/config';
+
 import {
 	DocumentBuilder,
 	SwaggerCustomOptions,
@@ -29,32 +29,7 @@ async function bootstrap() {
 	const CustomLoggerServiceApp = app.get(CustomLoggerService);
 	app.useGlobalFilters(new HttpExceptionFilter(CustomLoggerServiceApp));
 
-	const configService = app.get(ConfigService);
-
 	app.useLogger(CustomLoggerServiceApp);
-
-	const rabbitUser = configService.get('rabbitmq.user');
-	const rabbitPassword = configService.get('rabbitmq.pass');
-	const rabbitHost = configService.get('rabbitmq.host');
-	const rabbitPort = configService.get('rabbitmq.port');
-	const rabbitQueueName = configService.get('rabbitmq.queueName');
-
-	for (const queue of rabbitQueueName) {
-		app.connectMicroservice<MicroserviceOptions>({
-			transport: Transport.RMQ,
-			options: {
-				urls: [
-					`amqp://${rabbitUser}:${rabbitPassword}@${rabbitHost}:${rabbitPort}`,
-				],
-				queue,
-				queueOptions: {
-					durable: true,
-				},
-				noAck: false,
-				prefetchCount: 1,
-			},
-		});
-	}
 
 	app.setGlobalPrefix('api');
 
@@ -85,9 +60,11 @@ async function bootstrap() {
 
 	app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
-	app.enableCors();
+	const configService = app.get(ConfigService);
+	const port = configService.get('environment.port');
 
-	await app.listen(3000);
+	CustomLoggerServiceApp.log(`Starting server on port ${port}`);
+	await app.listen(port);
 }
 
 bootstrap();
