@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner, TableColumn } from 'typeorm';
 
 export class customerRemovePassword1662413015593 implements MigrationInterface {
-	private tableName = 'customer';
+	private tableName = 'customers';
 
 	public async up(queryRunner: QueryRunner): Promise<void> {
 		await queryRunner.dropColumn(this.tableName, 'password');
