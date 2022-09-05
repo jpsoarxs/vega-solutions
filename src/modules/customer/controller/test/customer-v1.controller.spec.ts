@@ -45,7 +45,6 @@ describe('CustomerControllerV1', () => {
 		const customer: CreateCustomerDto = {
 			name: faker.name.firstName(),
 			email: faker.internet.email(),
-			password: faker.internet.password(),
 			cpf: '05787697409',
 			phone: faker.phone.number(),
 			address: {

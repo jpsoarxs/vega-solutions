@@ -12,10 +12,6 @@ export class CreateCustomerDto {
 	@IsEmail()
 	email: string;
 
-	@ApiProperty({ description: 'Senha do cliente' })
-	@IsString()
-	password: string;
-
 	@ApiProperty({ description: 'CPF do cliente' })
 	@IsString()
 	cpf: string;

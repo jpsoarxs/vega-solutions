@@ -11,7 +11,6 @@ describe('CustomerEntity', () => {
 		const customer = new CustomerEntity({
 			name: faker.name.firstName(),
 			email: faker.internet.email(),
-			password: faker.internet.password(),
 			cpf: '05787697409',
 			phone: faker.phone.number(),
 			address: {
@@ -32,7 +31,6 @@ describe('CustomerEntity', () => {
 			new CustomerEntity({
 				name: faker.name.firstName(),
 				email: faker.internet.email(),
-				password: faker.internet.password(),
 				cpf: '05787697409',
 				phone: faker.phone.number(),
 			});
@@ -44,7 +42,6 @@ describe('CustomerEntity', () => {
 		const customer = new CustomerEntity({
 			name: faker.name.firstName(),
 			email: faker.internet.email(),
-			password: faker.internet.password(),
 			cpf: '05787697409',
 			address: {
 				zipCode: faker.address.zipCode(),
