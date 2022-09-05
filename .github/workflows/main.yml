@@ -66,12 +66,6 @@ jobs:
           envkey_TYPEORM_POSTGRES_LOGGING: ${{ secrets.TYPEORM_POSTGRES_LOGGING }}
           envkey_TYPEORM_POSTGRES_ENTITIES: ${{ secrets.TYPEORM_POSTGRES_ENTITIES }}
           envkey_TYPEORM_POSTGRES_MIGRATIONS: ${{ secrets.TYPEORM_POSTGRES_MIGRATIONS }}
-          directory: ./
-          file_name: .env
-          fail_on_empty: false
-          
-        - name: Show files
-          run: ls -a
         
         - name: Running Migrations
           run: npm run migration:run
