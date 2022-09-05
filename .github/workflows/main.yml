@@ -66,7 +66,7 @@ jobs:
           envkey_AUTH_SALT_ROUNDS: ${{ secrets.AUTH_SALT_ROUNDS }}
           envkey_JWT_SECRET: ${{ secrets.JWT_SECRET }}
           envkey_SIGN_EXPIRATION: ${{ secrets.SIGN_EXPIRATION }}
-          envkey_PORT: ${{ secrets.POSTGRES_PORT }}
+          envkey_PORT: ${{ secrets.PORT }}
 
       - name: Up the deploy
         run: flyctl deploy --remote-only
