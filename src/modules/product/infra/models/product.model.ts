@@ -1,9 +1,9 @@
-import { Column, Entity, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 import { ProductActions } from '../../entities/enum/product-actions.enum';
 import { ProductCategory } from '../../entities/enum/product-category.enum';
 
 @Entity('products')
-export class CustomerModel {
+export class ProductModel {
 	@PrimaryColumn('uuid')
 	id: string;
 
