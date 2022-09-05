@@ -53,7 +53,7 @@ jobs:
     needs: build
     environment:
       name: production
-      url: prod-desafio.fly.dev
+      url: https://prod-desafio.fly.dev/
 
     steps:
       - name: Deploy application - step 1
