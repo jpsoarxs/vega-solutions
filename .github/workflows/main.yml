@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+    
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -52,10 +53,14 @@ jobs:
         run: npm run test:cov
         
   deploy:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
       
-      steps:
-        - name: Deploy application
-        - uses: actions/checkout@v2
-        - uses: superfly/flyctl-actions/setup-flyctl@master
-        - run: flyctl deploy --remote-only
+    steps:
+      - name: Deploy application - step 1
+        uses: actions/checkout@v2
+
+      - name: Deploy application - step 2 
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Up the deploy
+        run: flyctl deploy --remote-only
