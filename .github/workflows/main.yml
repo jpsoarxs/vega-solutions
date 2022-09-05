@@ -27,33 +27,6 @@ env:
   SIGN_EXPIRATION: ${{ secrets.SIGN_EXPIRATION }}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    environment:
-      name: production
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-
-      - name: Installing Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-
-      - name: Set github secrets
-        run: git config --global url."https://${{ secrets.PAT }}@github.com/".insteadOf ssh://git@github.com/
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Building APP
-        run: npm run build
-
-      - name: Running Jest Coverage
-        run: npm run test:cov
-
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -67,6 +40,19 @@ jobs:
 
       - name: Deploy application - step 2
         uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy application - 3
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          envkey_POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          envkey_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          envkey_POSTGRES_PASS: ${{ secrets.POSTGRES_PASS }}
+          envkey_POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          envkey_TYPEORM_POSTGRES_SYNCHRONIZE: ${{ secrets.TYPEORM_POSTGRES_SYNCHRONIZE }}
+          envkey_TYPEORM_POSTGRES_LOGGING: ${{ secrets.TYPEORM_POSTGRES_LOGGING }}
+          envkey_TYPEORM_POSTGRES_ENTITIES: ${{ secrets.TYPEORM_POSTGRES_ENTITIES }}
+          envkey_TYPEORM_POSTGRES_MIGRATIONS: ${{ secrets.TYPEORM_POSTGRES_MIGRATIONS }}
 
       - name: Up the deploy
         run: flyctl deploy --remote-only
