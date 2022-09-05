@@ -13,21 +13,6 @@ services:
     networks:
       - desafio-network
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rbmq
-    hostname: rabbitmq
-    volumes:
-      - /var/lib/rabbitmq
-    ports:
-      - '5672:5672'
-      - '15672:15672'
-    env_file:
-      - ./.docker.env
-    networks:
-      - desafio-network
-    restart: unless-stopped
-
   postgres:
     container_name: pg
     image: postgres:14.4-alpine
