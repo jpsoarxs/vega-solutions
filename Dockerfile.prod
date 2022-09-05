@@ -24,11 +24,11 @@ RUN npm run build
 
 RUN npm ci && npm cache clean --force
 
+RUN npm run migration:run
+
 USER node
 
 FROM node:16-alpine As production
-
-RUN npm run migration:run
 
 COPY --chown=node:node --from=build /usr/src/app/node_modules ./node_modules
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
