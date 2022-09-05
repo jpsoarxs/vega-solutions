@@ -24,7 +24,7 @@ env:
 
   AUTH_SALT_ROUNDS: ${{ secrets.AUTH_SALT_ROUNDS }}
   JWT_SECRET: ${{ secrets.JWT_SECRET }}
-  SIGN_EXPIRATION: ${{ secrets.SIGN_EXPIRATION }
+  SIGN_EXPIRATION: ${{ secrets.SIGN_EXPIRATION }}
 
 jobs:
   build:
