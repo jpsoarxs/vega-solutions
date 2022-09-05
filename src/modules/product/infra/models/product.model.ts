@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	DeleteDateColumn,
+	Entity,
+	PrimaryColumn,
+	UpdateDateColumn,
+} from 'typeorm';
 import { ProductActions } from '../../entities/enum/product-actions.enum';
 import { ProductCategory } from '../../entities/enum/product-category.enum';
 
@@ -22,12 +29,12 @@ export class ProductModel {
 	@Column({ type: 'enum', enum: ProductActions })
 	action: ProductActions;
 
-	@Column()
+	@CreateDateColumn()
 	created_at: Date;
 
-	@Column()
+	@UpdateDateColumn()
 	updated_at: Date;
 
-	@Column({ nullable: true })
+	@DeleteDateColumn({ nullable: true })
 	deleted_at?: Date;
 }

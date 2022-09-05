@@ -20,7 +20,7 @@ export class ProductControllerV1 {
 	@Post()
 	async create(@Body() createProductDto: CreateProductDto) {
 		try {
-			return this.createProductUseCase.execute(createProductDto);
+			return await this.createProductUseCase.execute(createProductDto);
 		} catch (err) {
 			throw new HttpException(err, err.statusCode);
 		}

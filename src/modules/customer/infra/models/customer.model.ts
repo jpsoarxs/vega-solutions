@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	PrimaryColumn,
+	OneToOne,
+	JoinColumn,
+	CreateDateColumn,
+	UpdateDateColumn,
+	DeleteDateColumn,
+} from 'typeorm';
 import { AddressModel } from './';
 
 @Entity('customers')
@@ -22,12 +31,12 @@ export class CustomerModel {
 	@Column()
 	cpf: string;
 
-	@Column()
+	@CreateDateColumn()
 	created_at: Date;
 
-	@Column()
+	@UpdateDateColumn()
 	updated_at: Date;
 
-	@Column({ nullable: true })
+	@DeleteDateColumn({ nullable: true })
 	deleted_at?: Date;
 }
