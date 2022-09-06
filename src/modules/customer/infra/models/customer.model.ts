@@ -21,7 +21,10 @@ export class CustomerModel {
 	@Column({ unique: true })
 	email: string;
 
-	@OneToOne(() => AddressModel, ({ id }: AddressModel) => id, { cascade: true })
+	@OneToOne(() => AddressModel, ({ id }: AddressModel) => id, {
+		cascade: true,
+		eager: true,
+	})
 	@JoinColumn({ name: 'address' })
 	address: AddressModel;
 
