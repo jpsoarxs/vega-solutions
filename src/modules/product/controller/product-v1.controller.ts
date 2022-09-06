@@ -1,3 +1,4 @@
+import { JwtAuthGuard } from '@/modules/auth/guards/jwt.guard';
 import { PageDto, PageMetaDto, PageOptionsDto } from '@/shared';
 import {
 	Controller,
@@ -7,8 +8,9 @@ import {
 	HttpException,
 	Get,
 	Query,
+	UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ProductModel, TransactionModel } from '../infra';
 import {
 	CreateProductUseCase,
@@ -19,6 +21,7 @@ import {
 import { CreateProductDto, CreateTransactionDto } from './dto';
 
 @ApiTags('product')
+@ApiBearerAuth('access_token')
 @Controller({
 	path: 'product',
 	version: [VERSION_NEUTRAL],
@@ -31,6 +34,7 @@ export class ProductControllerV1 {
 		private readonly listTransactionUseCase: ListTransactionUseCase,
 	) {}
 
+	@UseGuards(JwtAuthGuard)
 	@Post()
 	async create(@Body() createProductDto: CreateProductDto) {
 		try {
@@ -40,6 +44,7 @@ export class ProductControllerV1 {
 		}
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get()
 	async product_paginated(
 		@Query() pageOptionsDto: PageOptionsDto,
@@ -58,6 +63,7 @@ export class ProductControllerV1 {
 		}
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Post('checkout')
 	async checkout(@Body() createTransactionDto: CreateTransactionDto) {
 		try {

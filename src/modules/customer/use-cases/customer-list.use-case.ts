@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CustomerModel, CustomerRepository } from '@/modules/customer/infra';
 import { PageOptionsDto } from '@/shared';
+import { Raw } from 'typeorm';
 
 interface CustomerList {
 	data: CustomerModel[];
@@ -27,6 +28,14 @@ export class ListCustomerUseCase {
 			take: params.limit,
 			skip: params.skip,
 			order: { created_at: params.order },
+			where: [
+				{
+					name: Raw((alias) => `${alias} ILIKE '%${params.search || ''}%'`),
+				},
+				{
+					email: Raw((alias) => `${alias} ILIKE '%${params.search || ''}%'`),
+				},
+			],
 		});
 
 		return { data: res, total: count };

@@ -4,6 +4,7 @@ import {
 	TransactionRepository,
 } from '@/modules/product/infra';
 import { PageOptionsDto } from '@/shared';
+import { Raw } from 'typeorm';
 
 interface TransactionList {
 	data: TransactionModel[];
@@ -30,6 +31,11 @@ export class ListTransactionUseCase {
 			take: params.limit,
 			skip: params.skip,
 			order: { created_at: params.order },
+			where: [
+				{
+					action: Raw((alias) => `${alias} ILIKE '%${params.search || ''}%'`),
+				},
+			],
 		});
 
 		return { data: res, total: count };

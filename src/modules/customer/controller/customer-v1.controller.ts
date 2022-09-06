@@ -47,6 +47,7 @@ export class CustomerV1Controller {
 		}
 	}
 
+	@UseGuards(JwtAuthGuard)
 	@Get()
 	async paginated(
 		@Query() pageOptionsDto: PageOptionsDto,

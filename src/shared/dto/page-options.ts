@@ -34,6 +34,8 @@ export class PageOptionsDto {
 	@IsOptional()
 	readonly limit?: number = 100;
 
+	@ApiPropertyOptional()
+	@Type(() => String)
 	@IsString()
 	@IsOptional()
 	readonly search?: string;

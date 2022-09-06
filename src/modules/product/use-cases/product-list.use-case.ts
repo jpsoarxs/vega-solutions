@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductModel, ProductRepository } from '@/modules/product/infra';
 import { PageOptionsDto } from '@/shared';
+import { Raw } from 'typeorm';
 
 interface ProductList {
 	data: ProductModel[];
@@ -27,6 +28,14 @@ export class ListProductUseCase {
 			take: params.limit,
 			skip: params.skip,
 			order: { created_at: params.order },
+			where: [
+				{
+					name: Raw((alias) => `${alias} ILIKE '%${params.search || ''}%'`),
+				},
+				{
+					category: Raw((alias) => `${alias} ILIKE '%${params.search || ''}%'`),
+				},
+			],
 		});
 
 		return { data: res, total: count };
