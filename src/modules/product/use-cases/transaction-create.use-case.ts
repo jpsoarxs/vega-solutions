@@ -23,8 +23,8 @@ export class CreateTransactionUseCase {
 	/**
 	 * Função que executa a criação da transacão no repositório
 	 *
-	 * @param product Produto a ser criado
-	 * @returns Retorna o produto criado pelo repositório
+	 * @param transaction Transação a ser criada
+	 * @returns Retorna a transação criada pelo repositório
 	 */
 	async execute(transaction: CreateTransactionDto): Promise<TransactionModel> {
 		const customer = await this.customer.execute(transaction.customer);
