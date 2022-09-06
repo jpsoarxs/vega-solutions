@@ -17,9 +17,9 @@ export type Transaction = {
 	id?: string;
 	customer: string;
 	product: string;
-	action: ProductActions;
+	action?: ProductActions;
 	quantity: number;
-	price: number;
+	price?: number;
 	date_to_return?: Date;
 };
 
