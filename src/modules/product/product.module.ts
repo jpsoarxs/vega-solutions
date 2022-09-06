@@ -11,6 +11,8 @@ import {
 	CreateProductUseCase,
 	FindByIdProductUseCase,
 	CreateTransactionUseCase,
+	ListProductUseCase,
+	ListTransactionUseCase,
 } from './use-cases';
 
 import { ProductControllerV1 } from './controller/product-v1.controller';
@@ -28,6 +30,8 @@ import { CustomerRepository, CustomerModel } from '../customer/infra';
 		CreateTransactionUseCase,
 		FindByIdCustomerUseCase,
 		CustomerRepository,
+		ListProductUseCase,
+		ListTransactionUseCase,
 	],
 	exports: [FindByIdProductUseCase],
 	controllers: [ProductControllerV1],

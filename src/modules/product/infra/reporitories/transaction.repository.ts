@@ -34,4 +34,8 @@ export class TransactionRepository {
 	async delete(id: string) {
 		return this.prodRepository.softDelete(id);
 	}
+
+	async count(): Promise<number> {
+		return this.prodRepository.count();
+	}
 }
