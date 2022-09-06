@@ -19,12 +19,14 @@ export class TransactionModel {
 
 	@OneToOne(() => CustomerModel, ({ id }: CustomerModel) => id, {
 		cascade: true,
+		eager: true,
 	})
 	@JoinColumn({ name: 'customer' })
 	customer: string;
 
 	@OneToOne(() => ProductModel, ({ id }: ProductModel) => id, {
 		cascade: true,
+		eager: true,
 	})
 	@JoinColumn({ name: 'product' })
 	product: string;
