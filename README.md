@@ -1,6 +1,6 @@
 ## Description
 
-Para iniciar a aplicação na sua máquina, você precisa clonar este repositório e ter o Docker instalado em sua máquina. Caso não tenha o **Docker**, você também poderá iniciar a aplicação, porém precisará fornecer instâncias dos serviços **RabbitMQ** e **PostgreSQL** separadamente, e para uso completo do sistema de logs, o **Graylog**.
+Para iniciar a aplicação na sua máquina, você precisa clonar este repositório e ter o Docker instalado em sua máquina. Caso não tenha o **Docker**, você também poderá iniciar a aplicação, porém precisará fornecer instâncias do serviço **PostgreSQL** separadamente.
 
 **Versão do Node.js:** 16.16.0 (LTS)
 
@@ -105,11 +105,9 @@ A pasta config fornece as variáveis de ambiente para a aplicação que está em
 ### **Infraestrutura**
 
 ```
-Na parte de infraestrutura temos o serviço de logger padrão do projeto, que envia os logs para o Graylog. Aqui pode ser configurado itens gerais da aplicação.
+Na parte de infraestrutura temos o serviço de logger padrão do projeto. Aqui pode ser configurado itens gerais da aplicação.
 ```
 
-### **Requirements**
-
 ```
-Nesta pasta deverá ser documentado os arquivos na estrutura de BDDs, para fins de sustentabilidade de código e negócio.
+
 ```
