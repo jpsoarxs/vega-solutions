@@ -40,7 +40,7 @@ jobs:
     needs: build
     environment:
       name: production
-      url: https://prod-desafio.fly.dev/
+      url: https://jpsdm.com/api
 
     steps:
       - name: Deploy application - step 1

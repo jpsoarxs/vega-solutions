@@ -1,7 +1,7 @@
 import * as request from 'supertest';
 import { INestApplication, CanActivate } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateCustomerUseCase } from '../../use-cases';
+import { CreateCustomerUseCase, ListCustomerUseCase } from '../../use-cases';
 import { CustomerRepository } from '../../infra/repositories';
 import { CustomerV1Controller } from '../customer-v1.controller';
 import { CreateCustomerDto } from '../dto';
@@ -20,6 +20,7 @@ describe('CustomerControllerV1', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				CreateCustomerUseCase,
+				ListCustomerUseCase,
 				{
 					provide: CustomerRepository,
 					useValue: {

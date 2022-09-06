@@ -34,4 +34,8 @@ export class CustomerRepository {
 	async delete(id: string) {
 		return this.userRepository.softDelete(id);
 	}
+
+	async count(): Promise<number> {
+		return this.userRepository.count();
+	}
 }

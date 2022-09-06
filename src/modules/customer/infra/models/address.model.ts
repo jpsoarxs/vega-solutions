@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import {
+	Column,
+	CreateDateColumn,
+	Entity,
+	PrimaryColumn,
+	UpdateDateColumn,
+} from 'typeorm';
 import { StateEnum } from '../../entities/enum';
 
 @Entity('customer_address')
@@ -24,9 +30,9 @@ export class AddressModel {
 	@Column()
 	state: StateEnum;
 
-	@Column()
+	@CreateDateColumn()
 	created_at: Date;
 
-	@Column()
+	@UpdateDateColumn()
 	updated_at: Date;
 }
